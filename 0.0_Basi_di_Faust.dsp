@@ -1,8 +1,8 @@
-// BASI DI FAUST
-
+// FONDAMENTI DI FAUST
 
 // COMMENTO
-// in Faust per commentare si usa un doppio slash //
+// molto della sintassi di Faust proviene dal linguaggio c
+// i commenti seguono per commentare si usa un doppio slash //
 // si usa per ogni riga interessata in cui deve essere inserito il commento.
 
 
