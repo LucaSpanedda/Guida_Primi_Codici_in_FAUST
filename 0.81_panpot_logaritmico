@@ -1,0 +1,12 @@
+// signal
+import("stdfaust.lib");
+decimale(step)= step-int(step);
+frequenza = 200;
+fasore = (frequenza/ma.SR) : (+ : decimale) ~ _;
+saw = (fasore-0.5);
+
+// panpot
+panner_slider = hslider("pan",0,0,1, 0.01); // da 0. a 1.
+panner_curve_1 = sin(panner_slider* ma.PI/2); // curva del panner 1- mezzo seno
+panner_curve_2 = cos(panner_slider* ma.PI/2); // curva del panner 2- mezzo seno
+process = saw*panner_curve_2, saw*panner_curve_1;
