@@ -1,13 +1,16 @@
-// Gli oggetti grafici sono divisi in due macrocategorie:
-// hslider - SLIDER ORIZZONTALE
-// vslider - SLIDER VERTICALE
+/* -------------------------------------------------------------- 80 caratteri -
+-------- 0.3- FREQUENZA VARIABILE ----------------------------------------------
 
-// di questi si può definire lo stile:
-// [style:slider] se si vuole un controllo SLIDER
-// [style:knob] se si vuole un controllo KNOB
+Gli oggetti grafici sono divisi in due macrocategorie:
+hslider - SLIDER ORIZZONTALE
+vslider - SLIDER VERTICALE
 
-// Li utilizzeremo ora come KNOB per controllare Ampiezza e Frequenza
-// dei due oscillatori.
+di questi si può definire lo stile:
+[style:slider] se si vuole un controllo SLIDER
+[style:knob] se si vuole un controllo KNOB
+
+Li utilizzeremo ora come KNOB per controllare Ampiezza e Frequenza
+dei due oscillatori. */
 
 
 import("stdfaust.lib");
