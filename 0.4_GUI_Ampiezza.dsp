@@ -1,9 +1,12 @@
-// In FAUST è possibile creare delle interfacce
-// per il controllo visuale all'interno del proprio codice.
+/* -------------------------------------------------------------- 80 caratteri -
+-------- 0.3- GUI AMPIEZZA -----------------------------------------------------
 
-// Sono presenti varie categorie di oggetti,
-// In questo esempio useremo degli slider orizzontali
-// Per il controllo dell'ampiezza dei nostri due oscillatori.
+In FAUST è possibile creare delle interfacce
+per il controllo visuale all'interno del proprio codice.
+
+Sono presenti varie categorie di oggetti,
+In questo esempio useremo degli slider orizzontali
+Per il controllo dell'ampiezza dei nostri due oscillatori. */
 
 
 import("stdfaust.lib");
