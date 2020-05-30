@@ -33,9 +33,12 @@ process infine,
 è la funzione finale e dice che il nostro fasore che si muove ora tra 0. e 1. 
 con - 0.5, si muove tra - 0.5 e +0.5, 
 e moltiplicando *2, si muove tra -1. e 1.
-dunque process = (fasore-0.5)*2; */
+dunque process = (fasore-0.5)*2;
+viene effettuato il riscalamento perchè 
+essendo il fasore solo in fase positiva potrebbe creare problemi ai coni.
+degli altoparlanti */
 
 //CODICE:
 decimale(x)= x-int(x);
 phase = 0.002 : (+ : decimale) ~ _;
-process = (phase-0.5)*2;
+process = (phase-0.5)*2 * hslider("ampiezza fasore 1",0,0,1, 0.01);
