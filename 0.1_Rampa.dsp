@@ -50,4 +50,9 @@ il nostro valore incrementato sarà arrivato a 4800
 a due secondi 9600, e così via... */
 
 //CODICE:
-process = 0.1 : + ~ _;
+//process = 0.1 : + ~ _;
+//per vedere la rampa sull'oscilloscopio di FAUST:
+    process = _; // commentare questo process.
+//e avviare il process rimuovendo il commento alla riga sotto "CODICE:"
+//disattivando però l'audio in uscita sul DAC.
+//così da non creare problemi sugli altoparlanti.
