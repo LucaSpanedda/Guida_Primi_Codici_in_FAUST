@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------- 80 caratteri -
--------- 0.3- FREQUENZA VARIABILE ----------------------------------------------
+-------- 0.5- GUI FREQUENZA ----------------------------------------------------
 
 Gli oggetti grafici sono divisi in due macrocategorie:
 hslider - SLIDER ORIZZONTALE
