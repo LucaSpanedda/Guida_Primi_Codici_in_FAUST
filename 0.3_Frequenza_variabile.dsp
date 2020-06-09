@@ -19,7 +19,8 @@ e così via.
 
 quindi se volessimo controllare la frequenza del nostro fasore,
 abbiamo bisogno di conoscere la frequenza di campionamento.
-e dire che: la frequenza che vogliamo per il fasore/ frequenza di campionamento.
+e dire che: 
+la frequenza che vogliamo per il fasore/ frequenza di campionamento.
 dandoci come risultato quello STEP INCREMENTALE
 che ci permette di arrivare da 0. a 1. risettandosi  
 tante volte quante quelle determinate dalla frequenza che vogliamo.
@@ -42,10 +43,16 @@ fasore = (frequenza/ma.SR) : (+ : decimale) ~ _; */
 //CODICE:
 import("stdfaust.lib");
 decimale(step)= step-int(step);
-frequenza = 400;
+frequenza = 440;
 fasore = (frequenza/ma.SR) : (+ : decimale) ~ _;
-process = fasore-0.5, fasore-0.5; 
+
+riscalamento_fasi = fasore-0.5;
 //il -0.5 serve per non creare un out solo positivo.
+
+ampiezza_fasore = 
+hslider("ampiezza fasore 1", 0, 0, 2, 0.01) * riscalamento_fasi;
+//lo slider serve per controllare l'ampiezza 
+
+process = ampiezza_fasore, ampiezza_fasore; 
 //abbiamo quindi in uscita due fasori in parallelo per la stessa frequenza.
-//che vengono automaticamente assegnati ai canali di uscita 1 & 2.
-//in stereofonia L & R
+//che vengono automaticamente assegnati ai canali di uscita al DAC 1 & 2.
