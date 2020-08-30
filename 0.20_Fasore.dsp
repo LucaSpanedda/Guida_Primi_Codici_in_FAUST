@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------- 80 caratteri -
--------- 0.2- FASORE -----------------------------------------------------------
+-------- 0.20- FASORE ----------------------------------------------------------
 Per ottenere un segnale FASORE, 
 dal nostro segnale di Rampa ad incremento infinito,
 creando dunque un segnale che si ripete ciclicamente ogni tot. campioni
