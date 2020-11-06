@@ -1,6 +1,7 @@
 // RAMPA 
 
-Una RAMPA è un segnale che produce un andamento crescente da un numero 
+*/Una RAMPA 
+è un segnale che produce un andamento crescente da un numero 
 di partenza ad infinito. 
 E tramite campioni viene implementata in modo che per ogni campione continui
 a crescere di e da un valore definito in partenza.
