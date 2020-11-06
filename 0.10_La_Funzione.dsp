@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.10 -LA FUNZIONE ---------------------------------------------------*/
+// LA FUNZIONE
 
 //Importo la libreria standard di FAUST
 import("stdfaust.lib");
