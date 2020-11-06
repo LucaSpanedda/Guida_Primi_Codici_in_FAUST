@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.3- GUI AMPIEZZA -----------------------------------------------------
+// GUI AMPIEZZA
 
 In FAUST è possibile creare delle interfacce
 per il controllo visuale all'interno del proprio codice.
