@@ -1,7 +1,7 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 1.00- LINEE DI RITARDO ------------------------------------------------
+// LINEE DI RITARDO 
 
-Le linee di ritardo in Faust si suddividono nelle seguenti categorie:
+/*Le linee di ritardo in Faust 
+si suddividono nelle seguenti categorie:
 
 mem - indica un solo campione di ritardo
 @ - indica un numero (ex. 44100) di campioni di ritardo variabile
