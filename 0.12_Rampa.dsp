@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.1- RAMPA ------------------------------------------------------------
+// RAMPA 
 
 Una RAMPA è un segnale che produce un andamento crescente da un numero 
 di partenza ad infinito. 
