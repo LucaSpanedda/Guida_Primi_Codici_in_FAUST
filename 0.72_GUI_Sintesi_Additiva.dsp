@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.72- GUI SINTESI ADDITIVA-------------------------------------------*/
+// GUI SINTESI ADDITIVA
 
 //Importo la libreria
 import("stdfaust.lib");
