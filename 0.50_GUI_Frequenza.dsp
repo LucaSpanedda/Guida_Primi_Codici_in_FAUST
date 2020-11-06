@@ -1,7 +1,6 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.5- GUI FREQUENZA ----------------------------------------------------
+// GUI FREQUENZA
 
-Gli oggetti grafici sono divisi in due macrocategorie:
+/*Gli oggetti grafici sono divisi in due macrocategorie:
 hslider - SLIDER ORIZZONTALE
 vslider - SLIDER VERTICALE
 
