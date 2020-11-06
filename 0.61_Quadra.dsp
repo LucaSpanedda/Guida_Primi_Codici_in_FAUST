@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.61- ONDA QUADRA ---------------------------------------------------*/
+// ONDA QUADRA 
 
 // Creazione di un onda quadra a partire dal fasore.
 // Fasore:
