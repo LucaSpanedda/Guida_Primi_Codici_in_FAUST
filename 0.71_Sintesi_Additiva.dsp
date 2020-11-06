@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.71- SINTESI ADDITIVA-----------------------------------------------*/
+// SINTESI ADDITIVA
 
 //4 Oscillatori sinusoidali in sintesi additiva
 
