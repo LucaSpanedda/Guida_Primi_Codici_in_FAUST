@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.60- ONDA TRIANGOLARE ----------------------------------------------*/
+// ONDA TRIANGOLARE
 
 // Creazione di un onda triangolare a partire dal fasore.
 // Fasore:
