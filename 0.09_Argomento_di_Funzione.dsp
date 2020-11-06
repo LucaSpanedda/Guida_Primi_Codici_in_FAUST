@@ -1,5 +1,4 @@
-/* -------------------------------------------------------------- 80 caratteri -
--------- 0.09 - ARGOMENTO DI FUNZIONE ----------------------------------------*/
+// ARGOMENTO DI FUNZIONE
 
 //Importo la libreria standard di FAUST
 import("stdfaust.lib");
