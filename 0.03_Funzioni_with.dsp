@@ -1,4 +1,4 @@
-// LA FUNZIONE
+// LA FUNZIONE CON WITH
 
 //Importo la libreria standard di FAUST
 import("stdfaust.lib");
@@ -19,9 +19,9 @@ import("stdfaust.lib");
 // la funzione stessa, senza ;
 
 // ad esempio:
-// nome_funzione(argomento_1, argomento_2) = variabile_1
+// nome_funzione(argomento_1, argomento_2) = argomento_1+argomento_2;
 
-// infine le istruzioni di una funzione vengono 
+// infine le istruzioni di una funzione possono venire
 // racchiuse tra due parentesi graffa,
 // e nella parentesi in apertura il with,
 // with{};
@@ -32,13 +32,12 @@ import("stdfaust.lib");
 // variabile_1 = argomento_1*10 + argomento_2*20;
 // };
 
-// infine, il process seguito della funzione
+// il process è seguito della funzione
 // per determinare quale funzione è in uscita,
 
 // ad esempio:
 // process = nome_funzione(100, 20);
 // dove 100, e 20, assumono il ruolo di argomento_1 e 2.
-
 
 // utilizziamo ora una funzione per creare un segnale rampa,
 // con un controllo della frequenza e dell'ampiezza
