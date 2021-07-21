@@ -1,6 +1,7 @@
 // RAMPA 
 
-/*Una RAMPA 
+/*
+Una RAMPA 
 è un segnale che produce un andamento crescente da un numero 
 di partenza ad infinito. 
 E tramite campioni viene implementata in modo che per ogni campione continui
@@ -55,4 +56,4 @@ a due secondi 9600, e così via... */
     process = _; // commentare questo process.
 //e avviare il process rimuovendo il commento alla riga sotto "CODICE:"
 //disattivando però l'audio in uscita sul DAC.
-//così da non creare problemi sugli altoparlanti.
+//così da non danneggiare gli speaker con della Corrente Continua.
