@@ -1,4 +1,5 @@
 // FONDAMENTI DI FAUST
+// Logiche di funzionamento alla base del linguaggio di programmazione FAUST
 
 // --- LA RIGA DI COMMENTO
 // la sintassi di Faust proviene dal linguaggio c quindi in Faust la riga di
