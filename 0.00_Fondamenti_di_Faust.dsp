@@ -1,5 +1,4 @@
-// -------------------------------------------------------------- 80 caratteri -
-// ----- 00 - FONDAMENTI DI FAUST ----------------------------------------------
+// FONDAMENTI DI FAUST
 
 // --- LA RIGA DI COMMENTO
 // la sintassi di Faust proviene dal linguaggio c quindi in Faust la riga di
