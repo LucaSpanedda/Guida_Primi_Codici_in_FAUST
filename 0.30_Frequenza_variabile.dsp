@@ -1,6 +1,6 @@
 // FREQUENZA VARIABILE 
 
-/*Nella nostra definizione del fasore,
+/* Nella nostra definizione del fasore,
 sappiamo che la nostra frequenza è definita
 dal valore che definisce gli step d'incremento per ogni campione.
 ad esempio:
