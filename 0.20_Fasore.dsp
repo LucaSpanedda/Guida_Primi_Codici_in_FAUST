@@ -1,16 +1,17 @@
 // FASORE 
 
-/*Per ottenere un segnale FASORE, 
+/* Per ottenere un segnale FASORE, 
 dal nostro segnale di Rampa ad incremento infinito,
-creando dunque un segnale che si ripete ciclicamente ogni tot. campioni
-che determinano il suo incremento:
+vogliamo creare un segnale che si ripete 
+secondo tale andamento ciclicamente ogni tot. campioni
+che determinano di conseguenza il suo incremento, 
+da un punto di partenza ad un punto di fine:
 Dobbiamo creare una funzione che faccia si di ESCLUDERE I NUMERI INTERI
 che sappiamo essere in una RAMPA crescenti all'infinito.
 E mantenere dunque invece, 
 i suoi decimali che hanno un determinato incremento alla base
 che si ripete crescendo sino ad arrivare ad un numero intero.
 
-Dunque:
 decimale(x) è la nostra prima funzione, in cui determiniamo che: 
 decimale vuole dire che ad x sottraiamo gli interi di x, 
 e quindi avremo i decimali di x
@@ -20,6 +21,7 @@ fasore è la nostra seconda funzione, e dice che
 0.002 in uscita è connesso in entrata 
 (:) a + (+ connesso a funzione decimale) 
 e tutto questo avviene in loop ~
+(~ che punta al primo ingresso disponibile nella funzione)
 fasore = 0.002 : (+ : decimale) ~ _;
 
 il fasore muovendo ogni campione per un incremento di 0.002 
