@@ -31,22 +31,14 @@ due_pigreco = 6.2831853071795;
 decimale(x) = x-int(x);
 // uso un argomento alla funzione per stabilire la frequenza nel process
 // e uso un secondo argomento per stabilire l'ampiezza
-// e creo i vari oscillatori sinusoidali
-osc_1(frequenza_1, ampiezza_1) = sin((frequenza_1/ma.SR : (+ : decimale) ~ _ ) 
-                                    *due_pigreco) *ampiezza_1;
-
-osc_2(frequenza_2, ampiezza_2) = sin((frequenza_2/ma.SR : (+ : decimale) ~ _ ) 
-                                    *due_pigreco) *ampiezza_2;
-
-osc_3(frequenza_3, ampiezza_3) = sin((frequenza_3/ma.SR : (+ : decimale) ~ _ ) 
-                                    *due_pigreco) *ampiezza_3;
-
-osc_4(frequenza_4, ampiezza_4) = sin((frequenza_4/ma.SR : (+ : decimale) ~ _ ) 
-                                    *due_pigreco) *ampiezza_4;
+// e creo la funzione dell'oscillatore sinusoidale
+osc(frequenza, ampiezza) = sin((frequenza/ma.SR : (+ : decimale) ~ _ ) 
+                                    *due_pigreco) *ampiezza;
             
+// ora richiamo la funzione più volte per sommare le varie componenti 
+// (onde sinusoidali) all'interno dello spettro.
+// per ognuna: (frequenza, ampiezza).
+// Uscita del segnale con il process:
 
-// somma dei vari oscillatori generati con i relativi argomenti alla funzione
-// per ognuno: (frequenza, ampiezza)
-// uscita del segnale 
 process = 
-osc_1(300.5, 0.500) +osc_2(450, 0.250) +osc_3(500, 0.125) +osc_4(600, 0.060);
+osc(300.5, 0.500) +osc(450, 0.200) +osc(500, 0.100) +osc(600, 0.060);
