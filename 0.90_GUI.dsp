@@ -1,4 +1,4 @@
-// GUI
+// GUI - GRAPHIC USER INTERFACE
 
 // importo la libreria standard e
 // del rumore bianco come sorgente da controllare
