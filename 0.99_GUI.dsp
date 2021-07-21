@@ -37,12 +37,12 @@ Dunque: */
 // la disposizione del suo codice è la seguente:
 // oggetto("nome visualizzazione", val.partenza, val.min, val.max, step tra min.max.)
 
-/*Gli oggetti grafici sono divisi in due macrocategorie:
+/* Gli oggetti grafici sono divisi in due macrocategorie:
 hslider - SLIDER ORIZZONTALE
 vslider - SLIDER VERTICALE
 di questi si può definire lo stile:
 [style:slider] se si vuole un controllo SLIDER
 [style:knob] se si vuole un controllo KNOB
-Li utilizzeremo ora come KNOB*/
+Li utilizzeremo ora come KNOB */
 
 process = noise* hslider("Ampiezza knob [style:knob]",0,0,1, 0.01);
