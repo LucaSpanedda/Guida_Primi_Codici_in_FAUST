@@ -1,4 +1,16 @@
-// REPLICA DEGLI OCILLATORI DELL'EMS VCS3
+// REPLICA DEGLI OSCILLATORI DELL'EMS VCS3
+
+/* Mettiamo insieme la teoria esposta fino ad ora per un applicazione pratica:
+La generazione degli oscillatori in Virtual Analog del Sintetizzatore VCS3.
+L’EMS VCS 3 `e un sintetizzatore analogico portatile con una ﬂessibile architettura 
+semimodulare controllata da una matrice. 
+Viene introdotto nel mercato nel 1969 dagli Electronic Music Studios di Londra. 
+In questabreve ricerca, andremo ad analizzare e realizzare, 
+dei metodi per replicare la sua sezione Oscillatori in digitale.
+Con il ﬁne ultimo di creare un codice aperto che possa essere 
+un punto d’inizio per chiunque voglia realizzare oscillatori virtual-analog 
+con questa metodologia. */
+
 
        /* -------------------------------------
             LIBRERIA STANDARD & COSTANTI
@@ -8,393 +20,341 @@
 
         // COSTANTI:
         // 2 PI Greco (In Double Precision)
-            pigreco = 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899;
-            due_pigreco = pigreco*2;
+        pigreco = 3.1415926535897932384626433832795028;
+        due_pigreco = pigreco*2;
         /* ------------------------------------- */
 
 
-// USCITE SUL DAC
+// USCITE:
+// il process ci permette di uscire dai canali
+// a partire dal canale 1 di default a seguire.
+// è necessario usare una , tra un canale e il seguente.
 // LEGENDA CONTROLLI OSCILLATORI SU USCITA:
-// oscillatore1/2/3(frequenza, shape, amp forma d'onda 1, amp forma d'onda 2)
-process = 
-            // Uscite dal canale 1 - DAC
-            oscillatore1(440, 5.01, 0., 0.)+
-            oscillatore2(440, 5.01, 0., 0.)+
-            oscillatore3(440, 5.01, 0., 0.),
+// oscillatore1/2/3(frequenza, shape,
+// amp forma d’onda 1, amp forma d’onda 2)
 
-            // Uscite dal canale 2 - DAC
-            oscillatore1(440, 5.01, 0., 0.)+
-            oscillatore2(440, 5.01, 0., 0.)+
-            oscillatore3(440, 5.01, 0., 0.);
- /* ------------------------------------- */
+    process =
+    // Uscite dal canale 1
+    oscillatore1(440, 5.01, 0., 0.)+
+    oscillatore2(440, 5.01, 0., 0.)+
+    oscillatore3(440, 5.01, 0., 0.),
+    // Uscite dal canale 2
+    oscillatore1(440, 5.01, 0., 0.)+
+    oscillatore2(440, 5.01, 0., 0.)+
+    oscillatore3(440, 5.01, 0., 0.);
+/* ------------------------------------- */
 
 
 
 
 /* -------------------------------------
-   SEZIONE OSCILLATORE 1
-   ------------------------------------- */
-
-// Funzione dell'Oscillatore 1
-
-// CONTROLLI: 
+SEZIONE OSCILLATORE 1
+------------------------------------- */
+// Codice della Funzione dell’Oscillatore 1
+// richiamato sul process.
+// CONTROLLI che vengono richiamati come argomento della funzione:
 // frequency1 = frequenza da 1. a 10000.
-// shape1 = forma d'onda da 0. a 1. per la sine (nel VCS3 da 0. a 10.)
-// amposcillatore1 = ampiezza della sine da 0. a 1. (nel VCS3 da 0. a 10.)
+// shape1 = forma d’onda da 0. a 1. per la sine
+// (nel VCS3 da 0. a 10.)
+// amposcillatore1 = ampiezza della sine da 0. a 1.
+// (nel VCS3 da 0. a 10.)
 // ampsaw1 = ampiezza della saw da 0. a 1. (nel VCS3 da 0. a 10.)
-
-
 // FUNZIONE:
-oscillatore1(frequency1, scaledshape1, scaledampsine1, scaledampsaw1) = funzioneuscita1
+oscillatore1(frequency1, scaledshape1,
+scaledampsine1, scaledampsaw1)
+= funzioneuscita1
 with{
-
 /* ------------------------------------- */
-// RISCALAMENTO DEI CONTROLLI:
+
+// RISCALAMENTO DEI CONTROLLI dati in argomento alla funzione:
 shape1 = scaledshape1/10;
 amposcillatore1 = scaledampsine1/10;
 ampsaw1 = scaledampsaw1/10;
 
-    /* -------------------------------------
-       CONTROLLO DELLA SHAPE
-       ------------------------------------- */
-
-    // CALCOLI SHAPE
-    // il valore della shape dato è da 0. a 1.
-    // calcoli a seguire su questo:
-
-    // rampa negativa 1-A-0
-    shape1neg = (shape1*-1)+1;
-    // condizione discendente se > 0.5
-    shape1maj05 = (shape1 > 0.5)*shape1neg;
-    // condizione ascendente se < 0.5
-    shape1neg05 = (shape1 < 0.5)*shape1;
-    // rampa negativa 1-A-(-1)
-    shape1negpos = (shape1*2-1);
-
-
-        // OUTS DELLA SHAPE
-        // rampa triangolare finale 0-A-1-A-0
-        shape1final = (shape1maj05 + shape1neg05)*2;
-        // rampa tri negativa 
-        // 2 - seconda metà
-        shape1cos = (shape1negpos > 0)*shape1negpos;
-        // rampa tri negativa 
-        // 1 - prima metà
-        shape1sin = ((shape1negpos < 0)*shape1negpos)*-1;
-
+/* -------------------------------------
+CONTROLLO DELLA SHAPE
+------------------------------------- */
+// CALCOLI SHAPE
+// il valore della shape dato `e da 0. a 1.
+// calcoli a seguire su questo:
+// rampa negativa 1-A-0
+shape1neg = (shape1*-1)+1;
+// condizione discendente se > 0.5
+shape1maj05 = (shape1 > 0.5)*shape1neg;
+// condizione ascendente se < 0.5
+shape1neg05 = (shape1 < 0.5)*shape1;
+// rampa negativa 1-A-(-1)
+shape1negpos = (shape1*2-1);
+// OUTS DELLA SHAPE
+// rampa triangolare finale 0-A-1-A-0
+shape1final = (shape1maj05 + shape1neg05)*2;
+// rampa tri negativa
+// 2 - seconda met`a
+shape1cos = (shape1negpos > 0)*shape1negpos;
+// rampa tri negativa
+// 1 - prima met`a
+shape1sin = ((shape1negpos < 0)*shape1negpos)*-1;
 /* ------------------------------------- */
-
-    // OSCILLATORE
-
-    /* -------------------------------------
-       FASORE
-       ------------------------------------- */
-    
-    // FASORE
-    // da cui derivano matematicamente le forme d'onda:
-
-    decimale(step)= step-int(step);
-    // reset interi
-    fasoreosc1 = (frequency1/ma.SR) : (+ : decimale) ~ _;
-    // controllo frequenza, 
-    // e loop ad ogni reset
-
-
-    // forme d'onda ricavate a partire dal fasore:
-
-    /* -------------------------------------
-       SINUSOIDE COMPLETA
-       ------------------------------------- */
-    sine2pi = fasoreosc1 * due_pigreco;
-    // fasore moltiplico *2 PI
-    sinusoideout = sin(sine2pi)*shape1final;
-    // Uscita Sinusoide con controllo Shape
-
-    /* -------------------------------------
-       SENO
-       ------------------------------------- */
-    sinepi = fasoreosc1 * pigreco;
-    // fasore moltiplico *2 PI
-    senofinal = ((sin(sinepi)-0.5)*2);
-    senoout = senofinal*shape1sin;
-    // Uscita Seno
-
-    /* -------------------------------------
-       COSENO
-       ------------------------------------- */
-    coseno = (senofinal*-1);
-    cosenoout = coseno*shape1cos;
-    // Uscita Coseno
-
-
-    // OUT FUNZIONE
-    funzioneosc1 = (sinusoideout+senoout+cosenoout)*amposcillatore1;
-    // uscita oscillatore con controllo della shape e ampiezza
-    funzionefasore1 = (fasoreosc1*2-1.)*ampsaw1;
-    // uscita rampa ricavata dal fasore con solo controllo ampiezza
-
-
-    funzioneuscita1 = funzioneosc1+funzionefasore1;
-    // uscita dalla funzione
-};
-
-
-
-
-
-
-
+// OSCILLATORE
+/* -------------------------------------
+FASORE
+------------------------------------- */
+// FASORE
+// da cui derivano matematicamente le forme d’onda:
+decimale(step)= step-int(step);
+// reset interi
+fasoreosc1 = (frequency1/ma.SR) : (+ : decimale) ~ _;
+// controllo frequenza,
+// e loop ad ogni reset
+// forme d’onda ricavate a partire dal fasore:
+/* -------------------------------------
+SINUSOIDE COMPLETA
+------------------------------------- */
+sine2pi = fasoreosc1 * due_pigreco;
+// fasore moltiplico *2 PI
+sinusoideout = sin(sine2pi)*shape1final;
+// Uscita Sinusoide con controllo Shape
 
 /* -------------------------------------
-   SEZIONE OSCILLATORE 2
-   ------------------------------------- */
+SENO
+------------------------------------- */
+sinepi = fasoreosc1 * pigreco;
+// fasore moltiplico *2 PI
+senofinal = ((sin(sinepi)-0.5)*2);
+senoout = senofinal*shape1sin;
+// Uscita Seno
+/* -------------------------------------
+COSENO
+------------------------------------- */
+coseno = (senofinal*-1);
+cosenoout = coseno*shape1cos;
+// Uscita Coseno
+// OUT FUNZIONE
+funzioneosc1 = (sinusoideout+senoout+cosenoout)
+* amposcillatore1;
+// uscita oscillatore con controllo della shape e ampiezza
+funzionefasore1 = (fasoreosc1*2-1.)*ampsaw1;
+// uscita rampa ricavata dal fasore
+// con solo controllo ampiezza
+ funzioneuscita1 = funzioneosc1+funzionefasore1;
+// uscita dalla funzione
+};
 
-// Funzione dell'Oscillatore 2
-
-// CONTROLLI: 
+/* -------------------------------------
+SEZIONE OSCILLATORE 2
+------------------------------------- */
+// Codice della Funzione dell’Oscillatore 2
+// richiamato sul process.
+// CONTROLLI che vengono richiamati come argomento della funzione:
 // frequency2 = frequenza da 1. a 10000.
-// shape2 = forma d'onda da 0. a 1. per quadra/saw (nel VCS3 da 0. a 10.)
-// amposcillatore2 = ampiezza della quadra da 0. a 1. (nel VCS3 da 0. a 10.)
+// shape2 = forma d’onda da 0. a 1. per quadra/saw
+// (nel VCS3 da 0. a 10.)
+// amposcillatore2 = ampiezza della quadra da 0. a 1.
+// (nel VCS3 da 0. a 10.)
 // ampsaw2 = ampiezza della saw da 0. a 1. (nel VCS3 da 0. a 10.)
-
-
 // FUNZIONE:
-oscillatore2(frequency2, scaledshape2, scaledampsquare2, scaledampsaw2) = funzioneuscita2
+oscillatore2(frequency2, scaledshape2,
+scaledampsquare2, scaledampsaw2) =
+funzioneuscita2
 with{
-
 /* ------------------------------------- */
-// RISCALAMENTO DEI CONTROLLI:
+
+// RISCALAMENTO DEI CONTROLLI dati in argomento alla funzione:
 shape2 = scaledshape2/10;
 ampquadra2 = scaledampsquare2/10;
 amptri2 = scaledampsaw2/10;
 
-    /* -------------------------------------
-       CONTROLLO DELLA SHAPE
-       ------------------------------------- */
-
-    // CALCOLI SHAPE
-    // il valore della shape dato è da 0. a 1.
-    // calcoli a seguire su questo:
-
-    // rampa negativa 1-A-0
-    shape2neg = (shape2*-1)+1;
-    // condizione discendente se > 0.5
-    shape2maj05 = (shape2 > 0.5)*shape2neg;
-    // condizione ascendente se < 0.5
-    shape2neg05 = (shape2 < 0.5)*shape2;
-    // rampa negativa 1-A-(-1)
-    shape2negpos = (shape2 *2 -1);
-
-
-        // OUTS DELLA SHAPE
-        // rampa triangolare finale 0-A-1-A-0
-        shape2final = (shape2maj05 + shape2neg05)*2;
-        // rampa tri negativa 
-        // 2 - seconda metà
-        shape2phasor = (shape2negpos > 0)*shape2negpos;
-        // rampa tri negativa 
-        // 1 - prima metà
-        shape2saw = ((shape2negpos < 0)*shape2negpos)*-1;
-
+/* -------------------------------------
+CONTROLLO DELLA SHAPE
+------------------------------------- */
+// CALCOLI SHAPE
+// il valore della shape dato `e da 0. a 1.
+// calcoli a seguire su questo:
+// rampa negativa 1-A-0
+shape2neg = (shape2*-1)+1;
+// condizione discendente se > 0.5
+shape2maj05 = (shape2 > 0.5)*shape2neg;
+// condizione ascendente se < 0.5
+shape2neg05 = (shape2 < 0.5)*shape2;
+// rampa negativa 1-A-(-1)
+shape2negpos = (shape2 *2 -1);
+// OUTS DELLA SHAPE
+// rampa triangolare finale 0-A-1-A-0
+shape2final = (shape2maj05 + shape2neg05)*2;
+// rampa tri negativa
+// 2 - seconda met`a
+shape2phasor = (shape2negpos > 0)*shape2negpos;
+// rampa tri negativa
+// 1 - prima met`a
+shape2saw = ((shape2negpos < 0)*shape2negpos)*-1;
 /* ------------------------------------- */
-
-    // OSCILLATORE
-
-    /* -------------------------------------
-       FASORE
-       ------------------------------------- */
-    
-    // FASORE
-    // da cui derivano matematicamente le forme d'onda:
-
-    decimale2(step2)= step2-int(step2);
-    // reset interi
-    fasoreosc2 = (frequency2/ma.SR) : (+ : decimale2) ~ _;
-    // controllo frequenza, 
-    // e loop ad ogni reset
-
-
-    // forme d'onda ricavate a partire dal fasore:
-
-    /* -------------------------------------
-       QUADRA
-       ------------------------------------- */
-    quadra1out = (fasoreosc2 > shape2*-1 +1) *2 -1;
-    // Imposto condizione su fasore (vero o falso; 1 o 0)
-    // la shape modifica la soglia della condizione,
-    // e trasformo il segnale rendendolo bipolare
-
-    /* -------------------------------------
-       DENTE DI SEGA A RAMPA
-       ------------------------------------- */
-    sawrampa1out = (fasoreosc2 *2 -1) * shape2phasor;
-    // trasformo il fasore in bipolare
-    // e imposto un controllo della shape ascendente da 0.5 a 1.
-
-    /* -------------------------------------
-       DENTE DI SEGA 
-       ------------------------------------- */
-    sawimpulse1out = (fasoreosc2 *-1 +0.5) * 2 * shape2saw;
-    // trasformo il fasore in bipolare ma ribaltando le fasi
-    // e imposto un controllo della shape discendente da 0. a 0.5
-
-    /* -------------------------------------
-       TRIANGOLARE
-       ------------------------------------- */
-    negative1tophasor = fasoreosc2 *-1 +1;
-    // ribalto fase del fasore - da 1. a 0.
-    tri1maj05 = ((fasoreosc2 > 0.5) * negative1tophasor);
-    // passa solo il segnale > di 0.5 uscendo come 1.
-    // ma moltiplico l'1. per la seconda parte del fasore ribaltato
-    // ottenendo un movimento da 0.5 a 0.
-    tri1min05 = (fasoreosc2 < 0.5) * fasoreosc2;
-    // passa solo il segnale < di 0.5 uscendo come 1.
-    // ma moltiplico l'1. per la prima parte del fasore (normale)
-    tri1sum = tri1maj05 + tri1min05;
-    // costruisco la mia onda triangolare con le somme
-    tri1out = (tri1sum - 0.25) * 4 * shape2final;
-    // riscalo rendendo l'onda triangolare bipolare
-    // imposto il controllo della shape triangolare:
-    // da 0. a 0.5 ascendente e da 0.5 a 1. discendente
-
-
-    // OUT FUNZIONE
-    oscquadra1out = quadra1out * ampquadra2;
-    // uscita oscillatore con controllo della shape e ampiezza
-    triangolare1out = (tri1out + sawimpulse1out + sawrampa1out) * amptri2;
-    // uscita oscillatore con controllo della shape e ampiezza
-
-
-    funzioneuscita2 = oscquadra1out+triangolare1out;
-    // uscita dalla funzione
+// OSCILLATORE
+/* -------------------------------------
+FASORE
+------------------------------------- */
+// FASORE
+// da cui derivano matematicamente le forme d’onda:
+decimale2(step2)= step2-int(step2);
+// reset interi
+fasoreosc2 = (frequency2/ma.SR) : (+ : decimale2) ~ _;
+// controllo frequenza,
+// e loop ad ogni reset
+// forme d’onda ricavate a partire dal fasore:
+/* -------------------------------------
+QUADRA
+------------------------------------- */
+quadra1out = (fasoreosc2 > shape2*-1 +1) *2 -1;
+// Imposto condizione su fasore (vero o falso; 1 o 0)
+// la shape modifica la soglia della condizione,
+// e trasformo il segnale rendendolo bipolare
+/* -------------------------------------
+DENTE DI SEGA A RAMPA
+------------------------------------- */
+sawrampa1out = (fasoreosc2 *2 -1) * shape2phasor;
+// trasformo il fasore in bipolare
+// e imposto un controllo della shape ascendente da 0.5 a 1.
+/* -------------------------------------
+DENTE DI SEGA
+------------------------------------- */
+sawimpulse1out = (fasoreosc2 *-1 +0.5) * 2 * shape2saw;
+// trasformo il fasore in bipolare ma ribaltando le fasi
+// e imposto un controllo della shape discendente da 0. a 0.5
+/* -------------------------------------
+TRIANGOLARE
+------------------------------------- */
+negative1tophasor = fasoreosc2 *-1 +1;
+// ribalto fase del fasore - da 1. a 0.
+tri1maj05 = ((fasoreosc2 > 0.5) * negative1tophasor);
+// passa solo il segnale > di 0.5 uscendo come 1.
+// ma moltiplico l’1. per la seconda parte del
+// fasore ribaltato
+// ottenendo un movimento da 0.5 a 0.
+tri1min05 = (fasoreosc2 < 0.5) * fasoreosc2;
+// passa solo il segnale < di 0.5 uscendo come 1.
+// ma moltiplico l’1. per la prima parte del
+// fasore (normale)
+tri1sum = tri1maj05 + tri1min05;
+// costruisco la mia onda triangolare con le somme
+tri1out = (tri1sum - 0.25) * 4 * shape2final;
+// riscalo rendendo l’onda triangolare bipolare
+// imposto il controllo della shape triangolare:
+// da 0. a 0.5 ascendente e da 0.5 a 1. discendente
+// OUT FUNZIONE
+oscquadra1out = quadra1out * ampquadra2;
+// uscita oscillatore con controllo della shape e ampiezza
+triangolare1out = (tri1out + sawimpulse1out + sawrampa1out)
+* amptri2;
+// uscita oscillatore con controllo della shape e ampiezza
+funzioneuscita2 = oscquadra1out+triangolare1out;
+// uscita dalla funzione
 };
 
-
-
-
-
-
-
 /* -------------------------------------
-   SEZIONE OSCILLATORE 3
-   ------------------------------------- */
-
-// Funzione dell'Oscillatore 3
-
-// CONTROLLI: 
+SEZIONE OSCILLATORE 3
+------------------------------------- */
+// Codice della Funzione dell’Oscillatore 3
+// richiamato sul process.
+// CONTROLLI che vengono richiamati come argomento della funzione:
 // frequency3 = frequenza da 0.25 a 500.
-// shape3 = forma d'onda da 0. a 1. per quadra/saw (nel VCS3 da 0. a 10.)
-// amposcillatore3 = ampiezza della quadra da 0. a 1. (nel VCS3 da 0. a 10.)
+// shape3 = forma d’onda da 0. a 1. per quadra/saw
+// (nel VCS3 da 0. a 10.)
+// amposcillatore3 = ampiezza della quadra da 0. a 1.
+// (nel VCS3 da 0. a 10.)
 // ampsaw3 = ampiezza della saw da 0. a 1. (nel VCS3 da 0. a 10.)
-
-
 // FUNZIONE:
-oscillatore3(frequency3, scaledshape3, scaledampsquare3, scaledampsaw3) = funzioneuscita3
+oscillatore3(frequency3, scaledshape3,
+scaledampsquare3, scaledampsaw3) =
+funzioneuscita3
 with{
-
 /* ------------------------------------- */
-// RISCALAMENTO DEI CONTROLLI:
+// RISCALAMENTO DEI CONTROLLI dati in argomento alla funzione:
 shape3 = scaledshape3/10;
 ampquadra3 = scaledampsquare3/10;
 amptri3 = scaledampsaw3/10;
-
-    /* -------------------------------------
-       CONTROLLO DELLA SHAPE
-       ------------------------------------- */
-
-    // CALCOLI SHAPE
-    // il valore della shape dato è da 0. a 1.
-    // calcoli a seguire su questo:
-
-    // rampa negativa 1-A-0
-    shape3neg = (shape3*-1)+1;
-    // condizione discendente se > 0.5
-    shape3maj05 = (shape3 > 0.5)*shape3neg;
-    // condizione ascendente se < 0.5
-    shape3neg05 = (shape3 < 0.5)*shape3;
-    // rampa negativa 1-A-(-1)
-    shape3negpos = (shape3 *2 -1);
-
-
-        // OUTS DELLA SHAPE
-        // rampa triangolare finale 0-A-1-A-0
-        shape3final = (shape3maj05 + shape3neg05)*2;
-        // rampa tri negativa 
-        // 2 - seconda metà
-        shape3phasor = (shape3negpos > 0)*shape3negpos;
-        // rampa tri negativa 
-        // 1 - prima metà
-        shape3saw = ((shape3negpos < 0)*shape3negpos)*-1;
-
+/* -------------------------------------
+CONTROLLO DELLA SHAPE
+------------------------------------- */
+// CALCOLI SHAPE
+// il valore della shape dato `e da 0. a 1.
+// calcoli a seguire su questo:
+// rampa negativa 1-A-0
+shape3neg = (shape3*-1)+1;
+// condizione discendente se > 0.5
+shape3maj05 = (shape3 > 0.5)*shape3neg;
+// condizione ascendente se < 0.5
+shape3neg05 = (shape3 < 0.5)*shape3;
+// rampa negativa 1-A-(-1)
+shape3negpos = (shape3 *2 -1);
+// OUTS DELLA SHAPE
+// rampa triangolare finale 0-A-1-A-0
+shape3final = (shape3maj05 + shape3neg05)*2;
+// rampa tri negativa
+// 2 - seconda met`a
+shape3phasor = (shape3negpos > 0)*shape3negpos;
+// rampa tri negativa
+// 1 - prima met`a
+shape3saw = ((shape3negpos < 0)*shape3negpos)*-1;
 /* ------------------------------------- */
-
-    // OSCILLATORE
-
-    /* -------------------------------------
-       FASORE
-       ------------------------------------- */
-    
-    // FASORE
-    // da cui derivano matematicamente le forme d'onda:
-
-    decimale3(step3)= step3-int(step3);
-    // reset interi
-    fasoreosc3 = (frequency3/ma.SR) : (+ : decimale3) ~ _;
-    // controllo frequenza, 
-    // e loop ad ogni reset
-
-
-    // forme d'onda ricavate a partire dal fasore:
-
-    /* -------------------------------------
-       QUADRA
-       ------------------------------------- */
-    quadra2out = (fasoreosc3 > shape3*-1 +1) *2 -1;
-    // Imposto condizione su fasore (vero o falso; 1 o 0)
-    // la shape modifica la soglia della condizione,
-    // e trasformo il segnale rendendolo bipolare
-
-    /* -------------------------------------
-       DENTE DI SEGA A RAMPA
-       ------------------------------------- */
-    sawrampa2out = (fasoreosc3 *2 -1) * shape3phasor;
-    // trasformo il fasore in bipolare
-    // e imposto un controllo della shape ascendente da 0.5 a 1.
-
-    /* -------------------------------------
-       DENTE DI SEGA 
-       ------------------------------------- */
-    sawimpulse2out = (fasoreosc3 *-1 +0.5) * 2 * shape3saw;
-    // trasformo il fasore in bipolare ma ribaltando le fasi
-    // e imposto un controllo della shape discendente da 0. a 0.5
-
-    /* -------------------------------------
-       TRIANGOLARE
-       ------------------------------------- */
-    negative2tophasor = fasoreosc3 *-1 +1;
-    // ribalto fase del fasore - da 1. a 0.
-    tri2maj05 = ((fasoreosc3 > 0.5) * negative2tophasor);
-    // passa solo il segnale > di 0.5 uscendo come 1.
-    // ma moltiplico l'1. per la seconda parte del fasore ribaltato
-    // ottenendo un movimento da 0.5 a 0.
-    tri2min05 = (fasoreosc3 < 0.5) * fasoreosc3;
-    // passa solo il segnale < di 0.5 uscendo come 1.
-    // ma moltiplico l'1. per la prima parte del fasore (normale)
-    tri2sum = tri2maj05 + tri2min05;
-    // costruisco la mia onda triangolare con le somme
-    tri2out = (tri2sum - 0.25) * 4 * shape3final;
-    // riscalo rendendo l'onda triangolare bipolare
-    // imposto il controllo della shape triangolare:
-    // da 0. a 0.5 ascendente e da 0.5 a 1. discendente
-
-
-    // OUT FUNZIONE
-    oscquadra2out = quadra2out * ampquadra3;
-    // uscita oscillatore con controllo della shape e ampiezza
-    triangolare2out = (tri2out + sawimpulse2out + sawrampa2out) * amptri3;
-    // uscita oscillatore con controllo della shape e ampiezza
-
-
-    funzioneuscita3 = oscquadra2out+triangolare2out;
-    // uscita dalla funzione
+// OSCILLATORE
+/* -------------------------------------
+FASORE
+------------------------------------- */
+// FASORE
+// da cui derivano matematicamente le forme d’onda:
+decimale3(step3)= step3-int(step3);
+// reset interi
+fasoreosc3 = (frequency3/ma.SR) : (+ : decimale3) ~ _;
+// controllo frequenza,
+// e loop ad ogni reset
+// forme d’onda ricavate a partire dal fasore:
+/* -------------------------------------
+QUADRA
+------------------------------------- */
+quadra2out = (fasoreosc3 > shape3*-1 +1) *2 -1;
+// Imposto condizione su fasore (vero o falso; 1 o 0)
+// la shape modifica la soglia della condizione,
+// e trasformo il segnale rendendolo bipolare
+/* -------------------------------------
+DENTE DI SEGA A RAMPA
+------------------------------------- */
+sawrampa2out = (fasoreosc3 *2 -1) * shape3phasor;
+// trasformo il fasore in bipolare
+// e imposto un controllo della shape ascendente da 0.5 a 1.
+/* -------------------------------------
+DENTE DI SEGA
+------------------------------------- */
+sawimpulse2out = (fasoreosc3 *-1 +0.5) * 2 * shape3saw;
+// trasformo il fasore in bipolare ma ribaltando le fasi
+// e imposto un controllo della shape discendente da 0. a 0.5
+/* -------------------------------------
+TRIANGOLARE
+------------------------------------- */
+negative2tophasor = fasoreosc3 *-1 +1;
+// ribalto fase del fasore - da 1. a 0.
+tri2maj05 = ((fasoreosc3 > 0.5) * negative2tophasor);
+// passa solo il segnale > di 0.5 uscendo come 1.
+// ma moltiplico l’1. per la seconda parte
+// del fasore ribaltato
+// ottenendo un movimento da 0.5 a 0.
+tri2min05 = (fasoreosc3 < 0.5) * fasoreosc3;
+// passa solo il segnale < di 0.5 uscendo come 1.
+// ma moltiplico l’1. per la prima parte
+// del fasore (normale)
+tri2sum = tri2maj05 + tri2min05;
+// costruisco la mia onda triangolare con le somme
+tri2out = (tri2sum - 0.25) * 4 * shape3final;
+// riscalo rendendo l’onda triangolare bipolare
+// imposto il controllo della shape triangolare:
+// da 0. a 0.5 ascendente e da 0.5 a 1. discendente
+// OUT FUNZIONE
+oscquadra2out = quadra2out * ampquadra3;
+// uscita oscillatore con controllo della shape e ampiezza
+triangolare2out = (tri2out + sawimpulse2out + sawrampa2out)
+* amptri3;
+// uscita oscillatore con controllo della shape e ampiezza
+funzioneuscita3 = oscquadra2out+triangolare2out;
+// uscita dalla funzione
 };
+
+
+// FINE DEL CODICE
