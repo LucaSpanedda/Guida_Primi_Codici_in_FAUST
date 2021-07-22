@@ -43,4 +43,4 @@ degli altoparlanti */
 //CODICE:
 decimale(x)= x-int(x);
 phase = 0.002 : (+ : decimale) ~ _;
-process = (phase-0.5)*2 * hslider("ampiezza fasore 1",0,0,1, 0.01);
+process = (phase);
