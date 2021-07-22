@@ -16,9 +16,7 @@ posso a seguito o a priori definire gli argomenti di una funzione:
 argomento di funzione 1 = 100.;
 questo vorrà dire che ognivolta che nel codice ho utilizzato 
 un "argomento di funzione 1" sarà uguale al contenuto della funzione
-cioè = 100.
-esempio:
-Ampiezza controllata dallo slider.*/
+cioè = 100. */
 
 fasore(frequenza) = (frequenza/ma.SR : (+ : decimale)~_);
 
