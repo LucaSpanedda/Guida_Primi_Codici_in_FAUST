@@ -49,10 +49,10 @@ fasore = (frequenza/ma.SR) : (+ : decimale) ~ _;
 riscalamento_fasi = fasore-0.5;
 //il -0.5 serve per non creare un out solo positivo.
 
-ampiezza_fasore = 
-hslider("ampiezza fasore 1", 0, 0, 2, 0.01) * riscalamento_fasi;
-//lo slider serve per controllare l'ampiezza 
+ampiezza_fasore = 1;
+//controllo ampiezza
 
 process = ampiezza_fasore, ampiezza_fasore; 
-//abbiamo quindi in uscita due fasori in parallelo per la stessa frequenza.
-//che vengono automaticamente assegnati ai canali di uscita al DAC 1 & 2.
+
+//abbiamo quindi in uscita due fasori in parallelo 
+per la stessa frequenza precedentemente determinata.
