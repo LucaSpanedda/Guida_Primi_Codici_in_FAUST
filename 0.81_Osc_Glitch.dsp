@@ -14,7 +14,7 @@ with{
 };
 
 process = 
-scatteringosc(8,1000,220,12468901,0.10)+
-scatteringosc(4,100,254,15568902,0.10),
-scatteringosc(4,1000,280,15118902,0.10)+
-scatteringosc(8,100,380,15588911,0.10);
+scatteringosc(8,1000,200,12468901,0.10)+
+scatteringosc(4,100,250,15568902,0.10),
+scatteringosc(4,1000,290,15118902,0.10)+
+scatteringosc(8,100,100,15588911,0.10);
