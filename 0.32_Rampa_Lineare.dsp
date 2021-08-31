@@ -7,7 +7,7 @@ import("stdfaust.lib");
 per generare al suo posto una rampa lineare. */
 
 trig = button("[1]phase reset");
-milliseconds = 10000;
+milliseconds = 1000;
 
 // decimalramp permette di passare ai valori solo quando sono tra 0. e 1.
 decimalramp(a) = (a < 1) * a;
