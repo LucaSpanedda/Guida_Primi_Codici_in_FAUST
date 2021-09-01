@@ -7,14 +7,30 @@ import("stdfaust.lib");
 raccogliamo i dati esposti fino ad ora per generare un segnale
 non convenzionale: un Fasore con dei Glitch interni controllati */
 
-// SCATTERING PHASOR
-scatteringphasor(freqnoise,freqphasor,seed) = scatteringphasor
-with{
-    varnoise = ( (seed) : (+ @(ma.SR/freqnoise)~ 
-    *(1103515245)))/2147483647.0;
-    scatteringphasor = (freqphasor/float(ma.SR)) : (+:ma.decimal)~ 
-    (-(_<:(_,*(_,varnoise-varnoise@(1)))) :
-    +(varnoise-varnoise@(1)));
-};
 
-process = scatteringphasor(2.4,0.5,8960458042),scatteringphasor(2.2,0.5,4362477819);
+// Noise generation - (define seed)
+noise(seed) = (+(seed)~*(1103515245))/2147483647.0;
+// Remove int
+decimale(x) = x-int(x);
+// Standard phasor (with remove int)
+phasor(f) = (f/ma.SR) : (+ : decimale) ~ _;
+// only if phasor < 0.5 = 1 (when phasor end) then impulse
+phasorif(f) = phasor(f) < 0.5;
+        impulse(sampsdel) = _ <: _, _@(sampsdel) :> - ;
+
+// regular impulse based on phasor * noise
+noisepulse(f,seed,sampsdel,pulseamp) = 
+        ((phasorif(f) : impulse(sampsdel)) * noise(seed))*pulseamp;
+
+// SCATTERING PHASOR
+// regular impulse + 1 on the retroaction generate scatter
+glitchphasor(fphasor,fscatter,sampsdel,pulseamp,seed) = 
+    (fphasor/ma.SR) : 
+        ( + : _ * 
+            (1-noisepulse(fscatter,seed,sampsdel,pulseamp)) : decimale
+        )~ _ ;
+
+// glitchphasor(fphasor,fscatter,sampsdel,pulseamp,seed)
+process = 
+        glitchphasor(2000,4,1,1,12462218)-0.5,
+        glitchphasor(2000,4,1,1,24654216)-0.5;
