@@ -5,7 +5,7 @@ Tutti i file .dsp sono sia guida che operativi.
 
 # La compilazione
 ### è possibile compilare codice FAUST (.dsp) verso le sequenti destinazioni:
-
+<pre>
 faust2alqt               faust2esp32              faust2mathdoc            faust2puredata           faust2unity
 faust2alsa               faust2faustvst           faust2mathviewer         faust2raqt               faust2vst
 faust2alsaconsole        faust2firefox            faust2max6               faust2ros                faust2vsti
@@ -51,3 +51,4 @@ faust2esp32             faust2netjackqt         faust2supercollider
 faust2faustvst          faust2nodejs            faust2svg
 
 ----
+</pre>
