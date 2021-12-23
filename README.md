@@ -2,29 +2,47 @@
 Repository di Faust (GRAME) passo dopo passo, con finalità di studio del linguaggio di programmazione.
 Tutti i file .dsp sono sia guida che operativi.
 
+
 # La compilazione
 è possibile compilare codice FAUST (.dsp) verso le sequenti destinazioni:
 
 <pre>
 ----
 
-faust2alqt               faust2esp32              faust2mathdoc            faust2puredata           faust2unity
-faust2alsa               faust2faustvst           faust2mathviewer         faust2raqt               faust2vst
-faust2alsaconsole        faust2firefox            faust2max6               faust2ros                faust2vsti
-faust2android            faust2gen                faust2md                 faust2rosgtk             faust2w32max6
-faust2androidunity       faust2graph              faust2msp                faust2rpialsaconsole     faust2w32msp
-faust2api                faust2graphviewer        faust2netjackconsole     faust2rpinetjackconsole  faust2w32puredata
-faust2atomsnippets       faust2ios                faust2netjackqt          faust2sam                faust2w32vst
-faust2au                 faust2jack               faust2nodejs             faust2sc                 faust2w64max6
-faust2bela               faust2jackconsole        faust2octave             faust2sig                faust2w64vst
-faust2caqt               faust2jackrust           faust2osxiosunity        faust2sigviewer          faust2wasm
-faust2caqtios            faust2jackserver         faust2owl                faust2smartkeyb          faust2webaudiowasm
-faust2csound             faust2jaqt               faust2paqt               faust2sndfile            faust2webaudiowast
-faust2csvplot            faust2jaqtchain          faust2pdf                faust2soul               faust2winunity
-faust2dssi               faust2juce               faust2plot               faust2supercollider      
-faust2dummy              faust2ladspa             faust2png                faust2svg                
-faust2dummymem           faust2linuxunity         faust2portaudiorust      faust2svgviewer          
-faust2eps                faust2lv2                faust2pure               faust2teensy  
+faust2alqt               faust2esp32              faust2mathdoc           
+faust2alsa               faust2faustvst           faust2mathviewer        
+faust2alsaconsole        faust2firefox            faust2max6             
+faust2android            faust2gen                faust2md                 
+faust2androidunity       faust2graph              faust2msp                
+faust2api                faust2graphviewer        faust2netjackconsole     
+faust2atomsnippets       faust2ios                faust2netjackqt         
+faust2au                 faust2jack               faust2nodejs             
+faust2bela               faust2jackconsole        faust2octave            
+faust2caqt               faust2jackrust           faust2osxiosunity       
+faust2caqtios            faust2jackserver         faust2owl             
+faust2csound             faust2jaqt               faust2paqt               
+faust2csvplot            faust2jaqtchain          faust2pdf                
+faust2dssi               faust2juce               faust2plot                 
+faust2dummy              faust2ladspa             faust2png                             
+faust2dummymem           faust2linuxunity         faust2portaudiorust             
+faust2eps                faust2lv2                faust2pure                
+faust2puredata           faust2unity
+faust2raqt               faust2vst
+faust2ros                faust2vsti
+faust2rosgtk             faust2w32max6
+faust2rpialsaconsole     faust2w32msp
+faust2rpinetjackconsole  faust2w32puredata
+faust2sam                faust2w32vst
+faust2sc                 faust2w64max6
+faust2sig                faust2w64vst
+faust2sigviewer          faust2wasm
+faust2smartkeyb          faust2webaudiowasm
+faust2sndfile            faust2webaudiowast
+faust2soul               faust2winunity
+faust2supercollider 
+faust2svg  
+faust2svgviewer 
+faust2teensy  
 
 ---- 
 
